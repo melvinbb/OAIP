@@ -104,3 +104,6 @@ def main():
      result.append({'digits': digits, 'units': units, 'zeros': zeros})
 
     print(result)
+
+if __name__ == "__main__":
+    main()
