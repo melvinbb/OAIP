@@ -7,7 +7,6 @@ def main():
     else:
         print("НЕТ")
 #2
-
     string1 = input("Введите первую строку: ")
     string2 = input("Введите вторую строку: ")
 
@@ -18,24 +17,24 @@ def main():
     else:
         print("НЕВЕРНО")
 #3
-    string1 = input("Введите первую строку: ")
-    string2 = input("Введите вторую строку: ")
-    string3 = input("Введите третью строку: ")
+    one = input()
+    two = input()
+    three = input()
 
-    if (string1 in ["раз", "1"] and
-            string2 in ["два", "2"] and
-            string3 in ["три", "3"]):
-        print("ГОРИ")
+    if one in ('1', 'раз') and two in ('2', 'два') and three in ('3', 'три'):
+        print('ГОРИ')
     else:
-        print("НЕ ГОРИ")
+        print('НЕ ГОРИ')
+
 #4
-    july_city = input("Введите город в июле: ")
-    august_city = input("Введите город в августе: ")
+    city_1 = input()
+    city_2 = input()
 
-    if (july_city == "Тула" and august_city != "Пенза") or (august_city == "Пенза" and july_city != "Тула"):
-        print("ДА")
+    if (city_1 == 'Тула' or city_1 == 'Пенза' or city_2 == 'Тула' or city_2 == 'Пенза') and city_1 != city_2:
+      print('ДА')
     else:
-        print("НЕТ")
+      print('НЕТ')
+
 #5
     n = int(input("Введите количество километров в марафоне (n): "))
     m = int(input("Введите расстояние, которое спортсмен пробегает за день (m): "))
@@ -66,39 +65,36 @@ def main():
         price = float(input("Цена: "))
         if price < 100:
             print("Попробуйте нашу выпечку!")
-        elif price >= 100 and price < 500:
+        elif 100 <= price < 500:
             print("Как насчёт орехов в шоколаде?")
         else:
             print("Попробуйте экзотические фрукты!")
     else:
         print("Загляните в товары для дома!")
 #8
-    price1 = float(input("Цена первого товара: >>> "))
-    price2 = float(input("Цена второго товара: >>> "))
-    price3 = float(input("Цена третьего товара: >>> "))
 
-    total_price = price1 + price2 + price3
+    prices_str = input("Введите цены через пробел: ").split()
+    prices = [float(p) for p in prices_str]
 
-    if (price1 < price2 < price3) or (price1 > price2 > price3):
-        print("Акция!")
-    if (price1 < price2 < price3):
-        total_price /= 2
+    if prices == sorted(prices):
+      total = sum(prices) / 2
+      print("Акция!\nК оплате:", f"{total:.2f}")
+    elif prices == sorted(prices, reverse=True):
+      total = sum(prices) / 3
+      print("Акция!\nК оплате:", f"{total:.2f}")
     else:
-        total_price /= 3
+      total = sum(prices)
+      print("К оплате:", f"{total:.2f}")
 
-    print("К оплате:", total_price)
 #9
-    buyers_before_yesterday = int(input("Введите число покупателей за позавчера: >>> "))
-    buyers_yesterday = int(input("Введите число покупателей за вчера: >>> "))
+    n1 = int(input("Введите количество посетителей вчера: "))
+    n2 = int(input("Введите количество посетителей позавчера: "))
 
-    difference = buyers_yesterday - buyers_before_yesterday
+    visitors = n2 + abs(n1 - n2)
 
-    if difference > 0:
-         buyers_today = buyers_yesterday + difference
-    else:
-        buyers_today = buyers_yesterday - difference
+    print(f'Сегодня магазин посетит: {visitors} человек')
 
-    print("Сегодня магазин посетит:", buyers_today, "человек")
+
 #10
     year = int(input("Введите год: "))
 
