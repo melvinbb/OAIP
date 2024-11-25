@@ -29,12 +29,12 @@ def main():
 #4
     city_1 = input()
     city_2 = input()
-
-    if (city_1 == 'Тула' or city_1 == 'Пенза' or city_2 == 'Тула' or city_2 == 'Пенза') and city_1 != city_2:
-      print('ДА')
+    if (((city_1 == 'Тула' and city_2 != 'Пенза' or city_1 != 'Тула' and city_2 == 'Пенза'
+        or(city_2 == 'Пенза' or city_1 == 'Пенза') or (city_2 == 'Тула' or city_1 == 'Тула')
+            and city_1 != city_2))):
+        print('ДА')
     else:
-      print('НЕТ')
-
+        print('НЕТ')
 #5
     n = int(input("Введите количество километров в марафоне (n): "))
     m = int(input("Введите расстояние, которое спортсмен пробегает за день (m): "))
