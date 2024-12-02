@@ -25,12 +25,15 @@ def main():
         print('НЕ ГОРИ')
 
     # 4
-    city1 = input("Введите город:")
-    city2 = input("Введите город:")
-    if city1 == "Тула" or city2 == "Пенза":
-        print("ДА")
+    city_1 = input()
+    city_2 = input()
+    if (((city_1 == 'Тула' and city_2 != 'Пенза' or city_1 != 'Тула' and city_2 == 'Пенза')
+         or (city_2 == 'Пезна' or city_1 == 'Пенза') or (city_2 == 'Тула' or city_1 == 'Тула'))
+            and city_1 != city_2):
+        print('Да')
     else:
-        print("НЕТ")
+        print('Нет')
+
 
     # 5
     n = int(input("Введите количество километров в марафоне (n): "))
