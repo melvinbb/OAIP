@@ -25,14 +25,12 @@ def main():
         print('НЕ ГОРИ')
 
     # 4
-    city_1 = input()
-    city_2 = input()
-    if (((city_1 == 'Тула' and city_2 != 'Пенза' or city_1 != 'Тула' and city_2 == 'Пенза')
-         or (city_2 == 'Пезна' or city_1 == 'Пенза') or (city_2 == 'Тула' or city_1 == 'Тула'))
-            and city_1 != city_2):
-        print('Да')
+    city1 = input()
+    city2 = input()
+    if (city1 == "Тула" and city2 != "Пенза") or (city1 != "Тула" and city2 == "Пенза") and city1 != city2:
+        print("ДА")
     else:
-        print('Нет')
+        print("НЕТ")
 
 
     # 5
