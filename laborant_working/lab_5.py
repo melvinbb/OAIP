@@ -2,17 +2,11 @@ def main():
 
 #1
     n = int(input())
-    numbers = []
-    for i in range(n):
-        numbers.append(int(input()))
+    digits = set()
+    for _ in range(n):
+        digits.update(input())
+    print(len(digits))
 
-    unique_digits = set()
-    for number in numbers:
-        while number > 0:
-            unique_digits.add(number % 10)
-            number //= 10
-
-    print(len(unique_digits))
 #2
     string1 = input()
     string2 = input()
@@ -22,30 +16,25 @@ def main():
 
     print(''.join(common_letters))
 #3
-    number = int(input())
+    digits = input()
+    missing = ''.join(sorted(set('0123456789') - set(digits)))
+    print(missing)
 
-    missing_digits = []
-    for i in range(10):
-     if str(i) not in str(number):
-      missing_digits.append(i)
-
-    print(*missing_digits)
 #4
     numbers = []
-    n = 1
-    while True:
-     number = int(input())
-     if number == 0:
-      break
-     numbers.append(number)
-     n += 1
+    num = " "
+    while num != 0:
+        num = int(input("Введите число (0 для завершения ввода): "))
+        if num != 0:
+            numbers.append(num)
+    length = len(numbers)
+    result = []
+    for num in numbers:
+        if num % length == 0:
+            result.append(num)
+    print(f"Числа, кратные длине последовательности:, {result}")
 
-    multiples = []
-    for number in numbers:
-     if number % n == 0:
-      multiples.append(number)
 
-    print(multiples)
 #5
     n = int(input())
     colors = []
@@ -60,22 +49,18 @@ def main():
 
     print(*result, sep='\n')
 #6
+    season, era = {
+        "Proterozoic": range(635 * 10 ** 6, 2800 * 10 ** 6),
+        "Cenozoic": range(0, 145 * 10 ** 6),
+        "Mesozoic": range(145 * 10 ** 6, 300 * 10 ** 6),
+        "Paleozoic": range(300 * 10 ** 6, 635 * 10 ** 6)
+        }, []
     while True:
-     age = input()
-     if age == "":
-      break
-     age = int(age)
-
-     if age >= 4500:
-      print("Archean")
-     elif age >= 2500:
-      print("Proterozoic")
-     elif age >= 540:
-      print("Paleozoic")
-     elif age >= 250:
-      print("Mesozoic")
-     else:
-      print("Cenozoic")
+        x = input()
+        if not x:
+            break
+        era.append(next((key for key, value in season.items() if int(x) * 1000 in value), "Archaea"))
+    print('\n'.join(era))
 #7
     bird_counts = {}
 
