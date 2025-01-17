@@ -19,3 +19,13 @@ def horse2(a: str):
 
 if __name__ == '__main__':
     horse2(input())
+
+def func_table(f, x_max, y_max):
+    for y in range(y_max + 1):
+        row = []
+        for x in range(x_max + 1):
+            row.append(str(eval(f)))
+        print('\t'.join(row))
+
+
+func_table('x ** 2 + y', 3, 5)
