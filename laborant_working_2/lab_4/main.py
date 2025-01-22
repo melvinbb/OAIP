@@ -4,7 +4,7 @@ from horse2 import horse2
 
 
 def main():
-    horse2('a3')
+    horse2('e4')
     print('')
     template(5, 4, 5)
     print('')

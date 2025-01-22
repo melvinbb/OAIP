@@ -1,11 +1,17 @@
 def horse2(a: str):
-    cols = 'abcdefgh'
-    rows = '12345678'
-    x, y = cols.index(a[0]), rows.index(a[1])
-    moves = [(-2, 1), (-2, -1), (-1, 2), (-1, -2), (1, 2), (1, -2), (2, 1), (2, -1)]
+    column = a[:1]
+    line = a[1:]
+    all_columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    all_lines = ['1', '2', '3', '4', '5', '6', '7', '8']
+    x = all_columns.index(column)
+    y = all_lines.index(line)
+
+    xy = [(x - 2, y + 1), (x - 2, y - 1), (x - 1, y + 2),
+           (x - 1, y - 2), (x + 1, y + 2), (x + 1, y - 2),
+           (x + 2, y + 1), (x + 2, y - 1)]
+
     result = []
-    for dx, dy in moves:
-        nx, ny = x + dx, y + dy
-        if 0 <= nx < 8 and 0 <= ny < 8:
-            result.append(cols[nx] + rows[ny])
+    for (a, b) in xy:
+        if (a >= 0) and (b >= 0) and (a < 8) and (b < 8):
+            result += [f'{all_columns[a]}{all_lines[b]}']
     print(*sorted(result), sep='\n')
