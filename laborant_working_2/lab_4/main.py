@@ -5,9 +5,9 @@ from horse2 import horse2
 
 def main():
     horse2('e4')
-    print('')
+    print()
     template(5, 4, 5)
-    print('')
+    print()
     func_table('x ** 2 + y', 3, 5)
 
 
