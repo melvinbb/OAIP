@@ -1,5 +1,6 @@
 import math
 
+
 def template(a, b, c):
     p = a + b + c
     s = p / 2

@@ -12,5 +12,3 @@ def func_table(f, x_max, y_max):
     for row in rows:
 
         print('\t'.join(row))
-
-
