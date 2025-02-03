@@ -21,10 +21,12 @@ def test_groundhog_day():
     result = groundhog_day(data)
     print("Groundhog Day Test 2:", result)
 
+
 def test_gears():
     data = [[0, 2, 30, 15], [14, 3, 21, 60], [7, 16, 4, 8]]
     result = gears(data, 30, 7)
     print("Gears Test:", result)
+
 
 def test_brackets():
     line = "[12 / (9) + 2(5{15 * <2 - 3>}6)]"
@@ -34,6 +36,7 @@ def test_brackets():
     line = "1{2 + [3}45 - 6] * (7 - 8) 9"
     result = brackets(line)
     print("Brackets Test 2:", result)
+
 
 def main():
     test_groundhog_day()
