@@ -34,17 +34,14 @@ def print_matrix(matrix):
 
 
 def transpose_matrix(matrix):
-
     return [list(row) for row in zip(*matrix)]
 
 
 def scalar_multiply(matrix, scalar):
-
     return [[element * scalar for element in row] for row in matrix]
 
 
 def matrix_add(matrix1, matrix2):
-
     rows1 = len(matrix1)
     cols1 = len(matrix1[0]) if rows1 else 0
     rows2 = len(matrix2)
@@ -57,12 +54,11 @@ def matrix_add(matrix1, matrix2):
 
 
 def matrix_subtract(matrix1, matrix2):
-
     rows1 = len(matrix1)
     cols1 = len(matrix1[0]) if rows1 else 0
     rows2 = len(matrix2)
-
     cols2 = len(matrix2[0]) if rows2 else 0
+
     if rows1 != rows2 or cols1 != cols2:
         raise ValueError("Матрицы должны быть одного размера для вычитания.")
 
@@ -118,14 +114,12 @@ multiplied_matrix_2 = scalar_multiply(matrix_2, 3)
 print("\nМатрица 2, умноженная на 3:")
 print_matrix(multiplied_matrix_2)
 
-
 try:
     added_matrix = matrix_add(matrix_1, matrix_2)
     print("\nРезультат сложения матриц 1 и 2:")
     print_matrix(added_matrix)
 except ValueError as e:
     print(f"\nОшибка сложения матриц: {e}")
-
 
 try:
     subtracted_matrix = matrix_subtract(matrix_1, matrix_2)
@@ -134,7 +128,6 @@ try:
 except ValueError as e:
     print(f"\nОшибка вычитания матриц: {e}")
 
-
 try:
     multiplied_matrix = matrix_multiply(matrix_1, matrix_2)
     print("\nРезультат умножения матриц 1 и 2:")
@@ -142,8 +135,13 @@ try:
 except ValueError as e:
     print(f"\nОшибка умножения матриц: {e}")
 
-
 print("\nСоздание случайной матрицы:")
-random_matrix = create_matrix(3, 4)
+random_matrix = create_matrix(3, 4, input_method='keyboard')
 print_matrix_dimensions(random_matrix)
 print_matrix(random_matrix)
+
+nums = list(range(20, 46))
+print()
+squared_nums = [x ** 3 for x in nums]
+print(squared_nums)
+print(nums)
