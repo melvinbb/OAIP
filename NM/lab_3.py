@@ -144,6 +144,6 @@ except ValueError as e:
 
 
 print("\nСоздание случайной матрицы:")
-random_matrix = create_matrix(3, 4)  # Пример размеров
+random_matrix = create_matrix(3, 4)
 print_matrix_dimensions(random_matrix)
 print_matrix(random_matrix)
