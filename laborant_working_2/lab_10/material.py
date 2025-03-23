@@ -23,7 +23,7 @@ class Material:
             self._quantity = 0
             print("Количество не может быть отрицательным. Установлено значение 0.")
 
-    def set_durability(self, new_durability):
+    def set_durability1(self, new_durability):
         if new_durability >= 0:
             self._durability = new_durability
         else:
