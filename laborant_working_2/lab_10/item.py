@@ -1,3 +1,7 @@
+def ininstance(Material):
+    pass
+
+
 class Item:
     def __init__(self, name, components, durability):
         self._name = name
