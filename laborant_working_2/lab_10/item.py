@@ -36,4 +36,3 @@ class Item:
             self._components.append(material)
             self._durability += material.get_durability()
             print(f"{self._name} улучшен с помощью {material.get_name()}. Новая прочность: {self._durability}")
-
