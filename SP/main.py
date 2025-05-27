@@ -2,16 +2,16 @@ from register import Register
 
 
 def main():
-    # Тест 1: Загрузка положительного числа
+    # Загрузка положительного числа
     reg = Register("ecx")
     reg.load(42)
     assert reg.to_int() == 42
     assert reg.value == [0] * 26 + [1, 0, 1, 0, 1, 0]
-    # Тест 2: Загрузка отрицательного числа
+    # Загрузка отрицательного числа
     reg.load(-42)
     assert reg.to_int() == -42
     assert reg.value[0] == 1  # Старший бит = 1 для отрицательного числа
-    # Тест 3: Сложение положительных чисел
+    # Сложение положительных чисел
     reg1 = Register("eax")
     reg2 = Register("ebx")
     reg1.load(15)
@@ -22,7 +22,7 @@ def main():
     assert reg1.flags.negative == 0
     assert reg1.flags.overflow == 0
     assert reg1.flags.carry == 0
-    # Тест 4: Сложение с переполнением
+    # Сложение с переполнением
     reg1.load(2147483647)  # 2³¹-1
     reg2.load(1)
     reg1.add(reg2)
@@ -31,7 +31,7 @@ def main():
     assert reg1.flags.negative == 1
     assert reg1.flags.overflow == 1
     assert reg1.flags.carry == 0
-    # Тест 5: Вычитание с отрицательным результатом
+    # Вычитание с отрицательным результатом
     reg1.load(10)
     reg2.load(15)
     reg1.sub(reg2)
@@ -40,7 +40,7 @@ def main():
     assert reg1.flags.negative == 1
     assert reg1.flags.overflow == 0
     assert reg1.flags.carry == 0
-    # Тест 6: Умножение положительного и отрицательного
+    # Умножение положительного и отрицательного
     reg1.load(10)
     reg2.load(-5)
     reg1.mul(reg2)
@@ -49,7 +49,7 @@ def main():
     assert reg1.flags.negative == 1
     assert reg1.flags.overflow == 0
     assert reg1.flags.carry == 0
-    # Тест 7: Деление отрицательного на положительное
+    # Деление отрицательного на положительное
     reg1.load(-100)
     reg2.load(5)
     reg1.div(reg2)
