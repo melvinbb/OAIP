@@ -9,24 +9,24 @@ class FlagsRegister:
         int_value = self._twos_complement_to_int(value)
         self.zero = int_value == 0
         self.negative = value[0] == 1
+
         if operation in ("add", "sub"):
             max_positive = 2 ** 31 - 1
             min_negative = -2 ** 31
+
             if operation == "add":
                 result = operand1 + operand2
                 self.overflow = (
                         (operand1 >= 0 and operand2 >= 0 and result > max_positive) or
                         (operand1 < 0 and operand2 < 0 and result < min_negative)
                 )
+
             elif operation == "sub":
                 result = operand1 - operand2
                 self.overflow = (
                         (operand1 >= 0 > operand2 and result > max_positive) or
                         (operand1 < 0 <= operand2 and result < min_negative)
                 )
-        if operation in ("add", "sub"):
-            carry_result = operand1 + operand2 if operation == "add" else operand1 - operand2
-            self.carry = (carry_result >> 32) != 0
 
     @staticmethod
     def _twos_complement_to_int(bits):
