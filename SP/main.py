@@ -1,38 +1,35 @@
-from stack import Stack
+from register import Register
 
 
 def main():
-    # Инициализация стека размером 3
-    stack = Stack(size=3)
+    reg = Register("ecx")
+    reg.load(42)
+    assert reg.to_int() == 42
+    assert reg.value == [0] * 26 + [1, 0, 1, 0, 1, 0]
 
-    # Тест 1: Добавление и извлечение значений
-    stack.push(10)
-    stack.push(-5)
-    assert stack.pop() == -5
-    assert stack.pop() == 10
+    reg.load(-42)
+    assert reg.to_int() == -42
+    assert reg.value[0] == 1
 
-    # Тест 2: Проверка на переполнение
-    try:
-        stack.push(1)
-        stack.push(2)
-        stack.push(3)
-        stack.push(4)  # StackOverflow
-    except Exception as e:
-        assert str(e) == "Stack overflow"
+    reg1 = Register("eax")
+    reg2 = Register("ebx")
+    reg1.load(15)
+    reg2.load(10)
+    reg1.add(reg2)
+    assert reg1.to_int() == 25
+    assert reg1.flags.zero == 0
+    assert reg1.flags.negative == 0
+    assert reg1.flags.overflow == 0
+    assert reg1.flags.carry == 0
 
-    # Тест 3: Проверка на опустошение
-    stack.clear()
-
-    try:
-        stack.pop()  # StackUnderflow
-    except Exception as e:
-        assert str(e) == "Stack underflow"
-
-    # Тест 4: Проверка флагов после push/pop
-    stack.push(0)
-    assert stack.registers[0].flags.zero == 1
-    stack.push(-42)
-    assert stack.registers[1].flags.negative == 1
+    reg1.load(2147483647)
+    reg2.load(1)
+    reg1.add(reg2)
+    assert reg1.to_int() == -2147483648
+    assert reg1.flags.zero == 0
+    assert reg1.flags.negative == 1
+    assert reg1.flags.overflow == 1
+    assert reg1.flags.carry == 0
 
     print("Все тесты пройдены успешно!")
 
