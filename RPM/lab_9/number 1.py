@@ -20,4 +20,4 @@ class BrokenPlugin(metaclass=InterfaceChecker):
         pass
 
     def pprint(self):
-        passS
+        pass
