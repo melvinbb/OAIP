@@ -69,16 +69,16 @@ class Chest:
         self.rarity = random.randint(1, 4)  # Уровень редкости - 1: Обычный, 2: Редкий, 3: Эпический, 4: Легендарный.
         self.chest_items = {}  # Предметы в ящике.
         # Вызовы функций для случайного получения предметов, ресурсов и состояния закрытости ящика.
-        self.__get_resources()
-        self.__get_item()
-        self.__get_lock()
+        self.get_resources()
+        self.get_item()
+        self.get_lock()
 
-    def __get_resources(self):
+    def get_resources(self):
         # Определение шанса ресурсов в ящике в зависимости от редкости.
         if self.rarity == 4 or random.randint(1, 10) <= self.rarity + 5:
             self.chest_items['Ресурсы'] = random.randint(5, 100) * self.rarity
 
-    def __get_item(self):
+    def get_item(self):
         # Определение шанса предметов в ящике в зависимости от редкости.
         if self.rarity not in (1, 2) or random.randint(1, 10) <= self.rarity + 4:
             count_items = random.randint(1, 3) * self.rarity  # Кол-во предметов умножаем на редкость ящика.
@@ -95,7 +95,7 @@ class Chest:
                         new_value = random.randint(1, 2)
                         self.chest_items[item_name] += (new_value * self.rarity) - 1  # Добавляем значение new_values
 
-    def __get_lock(self):
+    def get_lock(self):
 
         if self.rarity not in (1, 2, 3) or random.randint(1, 10) <= self.rarity + 5:
             self.lock = True
@@ -169,7 +169,7 @@ class Chest:
         else:
             print('Ваше число меньше 1.')
 
-    def get_item(self, item):
+    def get_item1(self, item):
         if self.lock:
             print('Ящик закрыт. Взломайте его или откройте ключом!' if self.code == 0
                   else 'Ящик закрыт специальным ключом, надо открыть его!')

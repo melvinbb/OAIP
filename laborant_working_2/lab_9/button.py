@@ -10,15 +10,15 @@ class Button:
         self.success = True  # Состояние "успешного выполнения нажатия кнопки"
         self.count_click = 0  # Сколько была нажата кнопка
 
-    def __random_success(self):
+    def random_success(self):
         if random.randint(1, 10) <= 8:
             self.success = True
         else:
             self.success = False
 
-    def __tap_tap(self):
+    def tap_tap(self):
         if self.click and not self.long_press:
-            self.__random_success()
+            self.random_success()
             if self.success:
                 print('Вы нажимаете на кнопку!')
                 self.count_click += 1
@@ -27,7 +27,7 @@ class Button:
                 self.active = False
         elif self.long_press and not self.click:
             while True:
-                self.__random_success()
+                self.random_success()
                 if self.success:
                     self.count_click += 3
                     quest = input('Вы хотите отжать кнопку (да, нет)?\t')
@@ -119,13 +119,13 @@ class Button:
                 if quest == 1:
                     print('Вы нажали кнопку обычным способом!')
                     self.click = True
-                    self.__tap_tap()
+                    self.tap_tap()
                     self.click = False
                     break
                 elif quest == 2:
                     print('Вы решили зажать кнопку!')
                     self.long_press = True
-                    self.__tap_tap()
+                    self.tap_tap()
                     self.long_press = False
                     break
                 else:
