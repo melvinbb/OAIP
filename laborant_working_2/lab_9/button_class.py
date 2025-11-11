@@ -14,6 +14,7 @@ class BUTTON:
             if self._action:
                 self._action()
             self.release()
+        else:
             print(f"Кнопка '{self.label}' уже нажата.")
 
     def release(self):
@@ -21,9 +22,6 @@ class BUTTON:
             self.is_pressed = False
             print(f"Кнопка '{self.label}' отпущена.")
 
-
     def set_label(self, new_label: str):
         self.label = new_label
         print(f"Надпись на кнопке изменена на '{self.label}'.")
-
-

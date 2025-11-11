@@ -4,19 +4,23 @@ class PET:
     def __init__(self, name: str = "Питомчик", species: str = "Тамагочи"):
         self.name = name
         self.species = species
-        self.hunger = 5
-        self.happiness = 7
-        self.energy = 8
+        self.hunger = 5  # 0 (сыт) - 10 (голоден)
+        self.happiness = 7 # 0 (грустный) - 10 (счастлив)
+        self.energy = 8  # 0 (устал) - 10 (бодр)
         print(f"Питомчик '{self.name}' ({self.species}) родился!")
         self._last_interaction_time = time.time()
 
     def _update_needs(self):
 
         elapsed = time.time() - self._last_interaction_time
-        if elapsed > 10:
-            self.hunger = min(10, self.hunger + int(elapsed / 10))
-            self.happiness = max(0, self.happiness - int(elapsed / 10))
-            self.energy = max(0, self.energy - int(elapsed / 15))
+        if elapsed > 5:
+            hunger_increase = int(elapsed / 5)
+            happiness_decrease = int(elapsed / 5)
+            energy_decrease = int(elapsed / 7)
+
+            self.hunger = min(10, self.hunger + hunger_increase)
+            self.happiness = max(0, self.happiness - happiness_decrease)
+            self.energy = max(0, self.energy - energy_decrease)
             self._last_interaction_time = time.time()
 
     def feed(self):
@@ -45,9 +49,7 @@ class PET:
     def get_status(self):
         self._update_needs()
         print(f"\n--- Статус {self.name} ({self.species}) ---")
-        print(f"Голод: {self.hunger}/10 {'(очень голоден!)' if self.hunger > 7 else ''}")
-        print(f"Счастье: {self.happiness}/10 {'(грустит...) ' if self.happiness < 3 else ''}")
-        print(f"Энергия: {self.energy}/10 {'(устал!)' if self.energy < 3 else ''}")
+        print(f"Голод: {self.hunger}/10 {'(ОЧЕНЬ ГОЛОДЕН!)' if self.hunger >= 8 else '(голоден)' if self.hunger > 5 else '(сыт)'}")
+        print(f"Счастье: {self.happiness}/10 {'(ОЧЕНЬ ГРУСТИТ!)' if self.happiness <= 2 else '(грустит)' if self.happiness < 5 else '(счастлив)'}")
+        print(f"Энергия: {self.energy}/10 {'(ОЧЕНЬ УСТАЛ!)' if self.energy <= 2 else '(устал)' if self.energy < 5 else '(бодр)'}")
         print("---------------------------")
-
-
