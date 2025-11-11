@@ -1,4 +1,3 @@
-# chest_class.py
 class CHEST:
     def __init__(self, capacity: int, password: str = None):
         self.capacity = capacity

@@ -4,9 +4,9 @@ class PET:
     def __init__(self, name: str = "Питомчик", species: str = "Тамагочи"):
         self.name = name
         self.species = species
-        self.hunger = 5  # 0 (сыт) - 10 (голоден)
-        self.happiness = 7 # 0 (грустный) - 10 (счастлив)
-        self.energy = 8  # 0 (устал) - 10 (бодр)
+        self.hunger = 5
+        self.happiness = 7
+        self.energy = 8
         print(f"Питомчик '{self.name}' ({self.species}) родился!")
         self._last_interaction_time = time.time()
 
