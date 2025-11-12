@@ -6,11 +6,7 @@ import time
 
 def main():
 
-    print("=== Запуск интерактивной лабораторной работы №9: ООП: Абстракция ===")
-
-
     my_chest = CHEST(capacity=5, password="123")
-
 
     def generic_button_action():
         print("-> [СОБЫТИЕ КНОПКИ]: Кнопка была нажата! <-\n")
@@ -112,7 +108,6 @@ def main():
                     break
                 else:
                     print("Неверный выбор. Попробуйте еще раз.")
-
 
                 time.sleep(0.5)
 

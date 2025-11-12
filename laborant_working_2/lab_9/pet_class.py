@@ -1,5 +1,6 @@
 import time
 
+
 class PET:
     def __init__(self, name: str = "Питомчик", species: str = "Тамагочи"):
         self.name = name
@@ -11,7 +12,6 @@ class PET:
         self._last_interaction_time = time.time()
 
     def _update_needs(self):
-
         elapsed = time.time() - self._last_interaction_time
         if elapsed > 5:
             hunger_increase = int(elapsed / 5)
@@ -49,7 +49,10 @@ class PET:
     def get_status(self):
         self._update_needs()
         print(f"\n--- Статус {self.name} ({self.species}) ---")
-        print(f"Голод: {self.hunger}/10 {'(ОЧЕНЬ ГОЛОДЕН!)' if self.hunger >= 8 else '(голоден)' if self.hunger > 5 else '(сыт)'}")
-        print(f"Счастье: {self.happiness}/10 {'(ОЧЕНЬ ГРУСТИТ!)' if self.happiness <= 2 else '(грустит)' if self.happiness < 5 else '(счастлив)'}")
-        print(f"Энергия: {self.energy}/10 {'(ОЧЕНЬ УСТАЛ!)' if self.energy <= 2 else '(устал)' if self.energy < 5 else '(бодр)'}")
+        print(
+            f"Голод: {self.hunger}/10 {'(ОЧЕНЬ ГОЛОДЕН!)' if self.hunger >= 8 else '(голоден)' if self.hunger > 5 else '(сыт)'}")
+        print(
+            f"Счастье: {self.happiness}/10 {'(ОЧЕНЬ ГРУСТИТ!)' if self.happiness <= 2 else '(грустит)' if self.happiness < 5 else '(счастлив)'}")
+        print(
+            f"Энергия: {self.energy}/10 {'(ОЧЕНЬ УСТАЛ!)' if self.energy <= 2 else '(устал)' if self.energy < 5 else '(бодр)'}")
         print("---------------------------")

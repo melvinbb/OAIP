@@ -1,5 +1,6 @@
 from typing import Callable, Optional
 
+
 class BUTTON:
     def __init__(self, label: str = "Кнопка", action: Optional[Callable[[], None]] = None):
         self.label = label
