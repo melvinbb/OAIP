@@ -33,7 +33,6 @@ class Button:
         self.label = new_label
         print(f"Надпись на кнопке изменена на '{self.label}'.")
 
-    # Новый метод для изменения позиции кнопки
     def set_position(self, new_x, new_y):
         self.x = new_x
         self.y = new_y
