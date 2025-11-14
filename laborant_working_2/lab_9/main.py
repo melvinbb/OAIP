@@ -10,7 +10,7 @@ def generic_button_action():
 
 def main():
     my_chest = Chest(capacity=5, password="123")
-    my_button = Button(label="Главная Кнопка", action=generic_button_action)
+    my_button = Button(label="Главная Кнопка", action=generic_button_action, x=50, y=100, width=150, height=75)
     my_pet = Pet(name="Флаффи")
 
     while True:
@@ -67,11 +67,13 @@ def main():
         elif choice == '2':
 
             while True:
-                print(f"\n--- МЕНЮ КНОПКИ: '{my_button.label}' ---")
-                print(f"Статус: {'нажата' if my_button.is_pressed else 'отпущена'}.")
+                print("\n--- МЕНЮ КНОПКИ ---")
+                print(my_button.get_info())
                 print("1. Нажать кнопку")
-                print("2. Изменить надпись кнопки")
-                print("3. Отпустить кнопку")
+                print("2. Отпустить кнопку")
+                print("3. Изменить надпись")
+                print("4. Изменить позицию")
+                print("5. Изменить размер")
                 print("b. Назад в главное меню")
 
                 button_choice = input("Что вы хотите сделать с кнопкой?: ").strip().lower()
@@ -79,10 +81,24 @@ def main():
                 if button_choice == '1':
                     my_button.press()
                 elif button_choice == '2':
+                    my_button.release()
+                elif button_choice == '3':
                     new_label = input("Введите новую надпись для кнопки: ")
                     my_button.set_label(new_label)
-                elif button_choice == '3':
-                    my_button.release()
+                elif button_choice == '4':
+                    try:
+                        new_x = int(input("Введите новую координату X: "))
+                        new_y = int(input("Введите новую координату Y: "))
+                        my_button.set_position(new_x, new_y)
+                    except ValueError:
+                        print("Некорректный ввод. X и Y должны быть целыми числами.")
+                elif button_choice == '5':
+                    try:
+                        new_width = int(input("Введите новую ширину: "))
+                        new_height = int(input("Введите новую высоту: "))
+                        my_button.set_size(new_width, new_height)
+                    except ValueError:
+                        print("Некорректный ввод. Ширина и высота должны быть целыми числами.")
                 elif button_choice == 'b':
                     break
                 else:
