@@ -1,4 +1,4 @@
-class CHEST:
+class Chest:
     def __init__(self, capacity: int, password: str = None):
         self.capacity = capacity
         self.items = []
@@ -91,5 +91,3 @@ class CHEST:
         elif not self.is_open:
             print("Сундук закрыт.")
         print("---------------------------")
-
-

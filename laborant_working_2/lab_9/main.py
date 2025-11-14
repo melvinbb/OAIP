@@ -1,18 +1,17 @@
-from chest_class import CHEST
-from button_class import BUTTON
-from pet_class import PET
 import time
+from chest_class import Chest
+from button_class import Button
+from pet_class import Pet
+
+
+def generic_button_action():
+    print("-> [СОБЫТИЕ КНОПКИ]: Кнопка была нажата! Выполнено действие. <-\n")
 
 
 def main():
-
-    my_chest = CHEST(capacity=5, password="123")
-
-    def generic_button_action():
-        print("-> [СОБЫТИЕ КНОПКИ]: Кнопка была нажата! <-\n")
-
-    my_button = BUTTON(label="Главная Кнопка", action=generic_button_action)
-    my_pet = PET(name="Флаффи")
+    my_chest = Chest(capacity=5, password="123")
+    my_button = Button(label="Главная Кнопка", action=generic_button_action)
+    my_pet = Pet(name="Флаффи")
 
     while True:
         print("\n--- ГЛАВНОЕ МЕНЮ ---")
@@ -24,10 +23,10 @@ def main():
         choice = input("Выберите действие: ").strip().lower()
 
         if choice == '1':
-
             while True:
-                my_chest.view_contents()
                 print("\n--- МЕНЮ СУНДУКА ---")
+                print(f"Сундук: {'открыт' if my_chest.is_open else 'закрыт'}")
+                print(f"Содержимое: {', '.join(my_chest.items) if my_chest.items else 'пусто'}")
                 print("1. Открыть сундук")
                 print("2. Закрыть сундук")
                 print("3. Запереть сундук (требуется пароль)")
@@ -72,6 +71,7 @@ def main():
                 print(f"Статус: {'нажата' if my_button.is_pressed else 'отпущена'}.")
                 print("1. Нажать кнопку")
                 print("2. Изменить надпись кнопки")
+                print("3. Отпустить кнопку")
                 print("b. Назад в главное меню")
 
                 button_choice = input("Что вы хотите сделать с кнопкой?: ").strip().lower()
@@ -81,6 +81,8 @@ def main():
                 elif button_choice == '2':
                     new_label = input("Введите новую надпись для кнопки: ")
                     my_button.set_label(new_label)
+                elif button_choice == '3':
+                    my_button.release()
                 elif button_choice == 'b':
                     break
                 else:
@@ -89,8 +91,8 @@ def main():
         elif choice == '3':
 
             while True:
-                my_pet.get_status()  #
-                print("\n--- МЕНЮ ПИТОМЦА ---")
+                my_pet.get_status()
+                print(f"\n--- МЕНЮ ПИТОМЦА: '{my_pet.name}' ---")
                 print("1. Покормить")
                 print("2. Поиграть")
                 print("3. Уложить спать")
@@ -108,8 +110,7 @@ def main():
                     break
                 else:
                     print("Неверный выбор. Попробуйте еще раз.")
-
-                time.sleep(0.5)
+            time.sleep(0.5)
 
         elif choice == 'q':
             print("Выход из программы. До свидания!")

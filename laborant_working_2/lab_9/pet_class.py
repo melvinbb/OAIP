@@ -1,7 +1,7 @@
 import time
 
 
-class PET:
+class Pet:
     def __init__(self, name: str = "Питомчик", species: str = "Тамагочи"):
         self.name = name
         self.species = species
