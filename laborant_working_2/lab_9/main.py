@@ -1,7 +1,110 @@
 import time
+import random
+
+
+class Pet:
+    def __init__(self, name):
+        self.name = name
+        self.hunger = random.randint(20, 80)
+        self.happiness = random.randint(20, 80)
+        self.energy = random.randint(20, 80)
+        self.is_sleeping = False
+        self.is_alive_flag = True
+
+    def is_alife(self):
+
+        if self.hunger >= 100 or self.happiness <= 0 or self.energy <= 0 or not self.is_alive_flag:
+            if self.is_alive_flag:
+                print(f'{self.name} умер от недостатка внимания/голода/усталости...')
+            self.is_alive_flag = False
+            return False
+        return True
+
+    def is_sleep(self):
+        if self.is_sleeping:
+            print(f'{self.name} спит и не может выполнять это действие.')
+            return True
+        return False
+
+    def feed(self):
+        if not self.is_alife():
+            return
+        if self.is_sleep():
+            return
+
+        if random.random() <= 0.05:
+            print(f'{self.name} умер от отравления...')
+            self.is_alive_flag = False
+            return
+
+        self.hunger = max(0, self.hunger - random.randint(10, 30))
+        self.happiness = min(100, self.happiness + random.randint(5, 15))
+        self._pass_time_effects()
+        print(f'{self.name} покормлен. Голод: {self.hunger}, Счастье: {self.happiness}')
+
+    def play(self):
+        if not self.is_alife():
+            return
+        if self.is_sleep():
+            return
+
+        if self.energy < 20:
+            print(f'{self.name} слишком устал, чтобы играть. Его энергия: {self.energy}.')
+            return
+
+        self.happiness = min(100, self.happiness + random.randint(10, 20))
+        self.energy = max(0, self.energy - random.randint(10, 20))
+        self.hunger = min(100, self.hunger + random.randint(5, 15))
+        self._pass_time_effects()
+        print(f'{self.name} поиграл. Счастье: {self.happiness}, Энергия: {self.energy}, Голод: {self.hunger}')
+
+    def sleep(self):
+        if not self.is_alife():
+            return
+        if self.is_sleeping:
+            print(f'{self.name} уже спит.')
+            return
+        self.is_sleeping = True
+        print(f'{self.name} лег спать.')
+
+        self._pass_time_effects()
+
+    def wake_up(self):
+        if not self.is_alife():
+            return
+        if not self.is_sleeping:
+            print(f'{self.name} уже бодрствует.')
+            return
+        self.is_sleeping = False
+        self.energy = min(100, self.energy + random.randint(20, 40))
+        self.hunger = min(100, self.hunger + random.randint(5, 15))
+        self._pass_time_effects()
+        print(f'{self.name} проснулся. Энергия: {self.energy}, Голод: {self.hunger}')
+
+    def info_status(self):
+        if not self.is_alife():
+            return
+        print(f'\n--- Состояние {self.name} ---')
+        print(f'Голод    : {self.hunger}/100')
+        print(f'Счастье  : {self.happiness}/100')
+        print(f'Энергия  : {self.energy}/100')
+        print(f'Статус   : {"Спит" if self.is_sleeping else "Бодрствует"}.')
+
+    def _pass_time_effects(self):
+
+        if not self.is_sleeping:
+            self.hunger = min(100, self.hunger + random.randint(3, 7))
+            self.energy = max(0, self.energy - random.randint(3, 7))
+            self.happiness = max(0, self.happiness - random.randint(2, 5))
+        else:
+            self.hunger = min(100, self.hunger + random.randint(1, 3))
+            self.energy = min(100, self.energy + random.randint(5, 10))
+            self.happiness = max(0, self.happiness - random.randint(1, 3))
+        self.is_alife()
+
+
 from chest_class import Chest
 from button_class import Button
-from pet_class import Pet
 
 
 def generic_button_action():
@@ -105,16 +208,23 @@ def main():
                     print("Неверный выбор. Попробуйте еще раз.")
 
         elif choice == '3':
-
             while True:
-                my_pet.get_status()
+
+                if not my_pet.is_alife():
+                    print(f"\n{my_pet.name} мертв. Вы не можете с ним взаимодействовать.")
+
+                    time.sleep(1)
+                    break
+
+                my_pet.info_status()
                 print(f"\n--- МЕНЮ ПИТОМЦА: '{my_pet.name}' ---")
                 print("1. Покормить")
                 print("2. Поиграть")
                 print("3. Уложить спать")
                 print("b. Назад в главное меню")
 
-                pet_choice = input(f"Что вы хотите сделать с {my_pet.name}?: ").strip().lower()
+                pet_choice = input(
+                    f"Что вы хотите сделать с {my_pet.name}?: ").strip().lower()
 
                 if pet_choice == '1':
                     my_pet.feed()
@@ -122,11 +232,12 @@ def main():
                     my_pet.play()
                 elif pet_choice == '3':
                     my_pet.sleep()
+                    my_pet.wake_up()
                 elif pet_choice == 'b':
                     break
                 else:
                     print("Неверный выбор. Попробуйте еще раз.")
-            time.sleep(0.5)
+                time.sleep(0.5)
 
         elif choice == 'q':
             print("Выход из программы. До свидания!")

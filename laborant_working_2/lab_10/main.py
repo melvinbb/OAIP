@@ -1,32 +1,82 @@
-from material import Material, Plank
-from blueprint import Blueprint
-from item import Item
-from crafting_table import CraftingTable
+from resources import *
+from items import *
 
 
-def main():
-    plank = Plank(20, 15, "Pine")
-    rope = Material("Rope", 10, 5)
-    stone = Material("Stone", 30, 20)
+class CraftingTable:
+    def __init__(self):
+        self.__resources = {
+            'stick': 0,
+            'stone': 0,
+            'iron': 0,
+            'diamond': 0
+        }
+        self.__crafting_recipes = {
+            'stone_sword': {'stick': 1, 'stone': 2},
+            'iron_sword': {'stick': 1, 'iron': 2},
+            'diamond_sword': {'stick': 1, 'diamond': 2}
+        }
 
-    axe_blueprint = Blueprint("Axe", {"Plank": 10, "Rope": 5, "Stone": 5})
-    fishing_rod_blueprint = Blueprint("Fishing Rod", {"Plank": 5, "Rope": 10})
+        self.__crafting_classes = {
+            'stone_sword': StoneSword,
+            'iron_sword': IronSword,
+            'diamond_sword': DiamondSword
+        }
 
-    my_workbench.add_material(plank)
-    my_workbench.add_material(rope)
-    me_workbench.add_material(stone)
+    def add_resource(self, resource):
+        if isinstance(resource, Stick):
+            self.__resources['stick'] += resource.get_amount()
+        elif isinstance(resource, Stone):
+            self.__resources['stone'] += resource.get_amount()
+        elif isinstance(resource, Iron):
+            self.__resources['iron'] += resource.get_amount()
+        elif isinstance(resource, Diamond):
+            self.__resources['diamond'] += resource.get_amount()
 
-    axe = my_workbench.craft_item(axe_blueprint)
-    if axe:
-        print(axe)
-        print(axe.info())
+    def craft_item(self, item):
+        if item in self.__crafting_recipes:
+            recipe = self.__crafting_recipes[item]
+            for resource, amount in recipe.items():
+                if self.__resources[resource] < amount:
+                    print(f">> Недостаточно ресурсов для крафта {item.replace('_', ' ').capitalize()}. <<")
+                    return None
+            for resource, amount in recipe.items():
+                self.__resources[resource] -= amount
+            crafted_item_class = self.__crafting_classes[item]
+            return crafted_item_class()
+        else:
+            print(f">> Рецепт для {item} не найден. <<")
+            return None
 
-        my_workbench.add_material(stone)
-        axe.upgrade(stone)
-        print(axe.info())
+    def info(self):
+        output = '\n'
+        for key, value in self.__resources.items():
+            if key == 'stick':
+                output += f'> {"Палка"}: {value}\n'
+            elif key == 'stone':
+                output += f'> {"Камень"}: {value}\n'
+            elif key == 'iron':
+                output += f'> {"Железо"}: {value}\n'
+            elif key == 'diamond':
+                output += f'> {"Алмаз"}: {value}\n'
+        return f">> Ресурсы на столе крафта << {output}"
 
-    fishing_rod = my_workbench.craft_item(fishing_rod_blueprint)
 
+crafting_table = CraftingTable()
 
-if __name__ == "__main__":
-    main()
+crafting_table.add_resource(Stick(5))
+crafting_table.add_resource(Stone(3))
+crafting_table.add_resource(Iron(2))
+crafting_table.add_resource(Diamond(1))
+
+print(crafting_table.info())
+
+stone_sword = crafting_table.craft_item('stone_sword')
+print(stone_sword.info() if stone_sword else '>> Крафт предмета не получился <<')
+
+iron_sword = crafting_table.craft_item('iron_sword')
+print(iron_sword.info() if iron_sword else '>> Крафт предмета не получился <<')
+
+diamond_sword = crafting_table.craft_item('diamond_sword')
+print(diamond_sword.info() if diamond_sword else '>> Крафт предмета не получился <<')
+
+print(crafting_table.info())

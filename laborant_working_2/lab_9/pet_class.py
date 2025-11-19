@@ -1,58 +1,61 @@
-import time
+import random
 
 
 class Pet:
-    def __init__(self, name: str = "Питомчик", species: str = "Тамагочи"):
+    def __init__(self, name):
         self.name = name
-        self.species = species
-        self.hunger = 5
-        self.happiness = 7
-        self.energy = 8
-        print(f"Питомчик '{self.name}' ({self.species}) родился!")
-        self._last_interaction_time = time.time()
+        self.hunger = random.randint(20, 80)
+        self.happiness = random.randint(20, 80)
+        self.energy = random.randint(20, 80)
+        self.is_sleeping = False
+        self.is_alive_flag = True
 
-    def _update_needs(self):
-        elapsed = time.time() - self._last_interaction_time
-        if elapsed > 5:
-            hunger_increase = int(elapsed / 5)
-            happiness_decrease = int(elapsed / 5)
-            energy_decrease = int(elapsed / 7)
+    def is_alife(self):
+        if self.hunger >= 100 or self.is_alive_flag is False:
+            self.is_alive_flag = False
+            print(f'{self.name} умер...')
+            return False
+        return True
 
-            self.hunger = min(10, self.hunger + hunger_increase)
-            self.happiness = max(0, self.happiness - happiness_decrease)
-            self.energy = max(0, self.energy - energy_decrease)
-            self._last_interaction_time = time.time()
+    def is_sleep(self):
+        if self.is_sleeping:
+            print(f'{self.name} спит и не может есть сейчас.')
+            return True
+        return False
 
     def feed(self):
-        self._update_needs()
-        self.hunger = max(0, self.hunger - 4)
-        self.happiness = min(10, self.happiness + 2)
-        print(f"{self.name} покормлен. Мням-мням!")
-        self.get_status()
+        if self.is_alife() and not self.is_sleep():
+            if random.random() <= 0.05:
+                print(f'{self.name} умер от отравления...')
+                self.is_alive_flag = False
+                return
+            self.hunger = max(0, self.hunger - random.randint(10, 30))
+            self.happiness = min(100, self.happiness + random.randint(5, 15))
+            print(f'{self.name} покормлен. Уровень голода: {self.hunger}')
 
     def play(self):
-        self._update_needs()
-        self.energy = max(0, self.energy - 3)
-        self.happiness = min(10, self.happiness + 4)
-        self.hunger = min(10, self.hunger + 1)
-        print(f"{self.name} поиграл. Весело!")
-        self.get_status()
+        if self.is_alife() and not self.is_sleep():
+            self.happiness = min(100, self.happiness + random.randint(10, 20))
+            self.energy = max(0, self.energy - random.randint(10, 20))
+            self.hunger = min(100, self.hunger + random.randint(5, 15))
+            print(f'{self.name} поиграл. Уровень счастья: {self.happiness}, энергия: {self.energy}')
 
     def sleep(self):
-        self._update_needs()
-        self.energy = min(10, self.energy + 5)
-        self.happiness = min(10, self.happiness + 1)
-        self.hunger = min(10, self.hunger + 1)
-        print(f"{self.name} спит... Зззз.")
-        self.get_status()
+        if self.is_alife():
+            self.is_sleeping = True
+            print(f'{self.name} лег спать.')
 
-    def get_status(self):
-        self._update_needs()
-        print(f"\n--- Статус {self.name} ({self.species}) ---")
-        print(
-            f"Голод: {self.hunger}/10 {'(ОЧЕНЬ ГОЛОДЕН!)' if self.hunger >= 8 else '(голоден)' if self.hunger > 5 else '(сыт)'}")
-        print(
-            f"Счастье: {self.happiness}/10 {'(ОЧЕНЬ ГРУСТИТ!)' if self.happiness <= 2 else '(грустит)' if self.happiness < 5 else '(счастлив)'}")
-        print(
-            f"Энергия: {self.energy}/10 {'(ОЧЕНЬ УСТАЛ!)' if self.energy <= 2 else '(устал)' if self.energy < 5 else '(бодр)'}")
-        print("---------------------------")
+    def wake_up(self):
+        if self.is_alife():
+            self.is_sleeping = False
+            self.energy = min(100, self.energy + random.randint(20, 40))
+            self.hunger = min(100, self.hunger + random.randint(5, 15))
+            print(f'{self.name} проснулся. Энергия: {self.energy}')
+
+    def info_status(self):
+        if self.is_alife():
+            print(f'Состояние {self.name}:')
+            print(f'Голод - {self.hunger}.')
+            print(f'Счастье - {self.happiness}.')
+            print(f'Энергия - {self.energy}.')
+            print(f'Состояние сна - {"Спит" if self.is_sleeping else "Бодрствует"}.')
