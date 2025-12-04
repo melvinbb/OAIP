@@ -1,47 +1,32 @@
+# resources.py
 
-class Stick:
-    def __init__(self, amount):
-        self.__name = 'Палка'
-        self.__amount = amount
-
-    def get_amount(self):
-        return self.__amount
-
-    def info(self):
-        return f'Это {self.__name} в количестве {self.__amount}.'
-
-
-class Stone:
-    def __init__(self, amount):
-        self.__name = 'Камень'
-        self.__amount = amount
+class Resource:
+    def __init__(self, name, amount=1):
+        self.name = name
+        self.amount = amount
 
     def get_amount(self):
-        return self.__amount
+        return self.amount
 
     def info(self):
-        return f'Это {self.__name} в количестве {self.__amount}.'
+        return f"Ресурс: {self.name}, Количество: {self.amount}"
 
 
-class Iron:
-    def __init__(self, amount):
-        self.__name = 'Железо'
-        self.__amount = amount
-
-    def get_amount(self):
-        return self.__amount
-
-    def info(self):
-        return f'Это {self.__name} в количестве {self.__amount}.'
+class Stick(Resource):
+    def __init__(self, amount=1):
+        super().__init__('Палка', amount)
 
 
-class Diamond:
-    def __init__(self, amount):
-        self.__name = 'Алмаз'
-        self.__amount = amount
+class Stone(Resource):
+    def __init__(self, amount=1):
+        super().__init__('Камень', amount)
 
-    def get_amount(self):
-        return self.__amount
 
-    def info(self):
-        return f'Это {self.__name} в количестве {self.__amount}.'
+class Iron(Resource):
+    def __init__(self, amount=1):
+        super().__init__('Железо', amount)
+
+
+class Diamond(Resource):
+    def __init__(self, amount=1):
+        super().__init__('Алмаз', amount)
