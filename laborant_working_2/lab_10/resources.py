@@ -1,5 +1,3 @@
-# resources.py
-
 class Resource:
     def __init__(self, name, amount=1):
         self.name = name

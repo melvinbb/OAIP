@@ -1,5 +1,3 @@
-
-
 class Item:
     def __init__(self, name, durability):
         self.name = name
@@ -16,13 +14,12 @@ class Sword(Item):
         self.damage = damage
 
     def info(self):
-        # Переопределяем info для отображения урона меча
         return f"Меч: {self.name}, Урон: {self.damage}, Прочность: {self.durability}"
 
 
 class StoneSword(Sword):
     def __init__(self):
-        super().__init__('Каменный Меч', 5, 100)  # Имя, Урон, Прочность
+        super().__init__('Каменный Меч', 5, 100)
 
 
 class IronSword(Sword):

@@ -193,12 +193,10 @@ if __name__ == "__main__":
     crafting_table.add_resource(Stone(2))
     display_current_resources(crafting_table)
 
-    # Крафт зачарованных мечей
     enchanted_stone_sword = attempt_craft(crafting_table, 'enchanted_stone_sword')
     enchanted_iron_sword = attempt_craft(crafting_table, 'enchanted_iron_sword')
     enchanted_diamond_sword = attempt_craft(crafting_table, 'enchanted_diamond_sword')
     display_current_resources(crafting_table)
 
-    # Тестируем разбор зачарованного меча
     attempt_disassemble(crafting_table, enchanted_diamond_sword)
     display_current_resources(crafting_table)
